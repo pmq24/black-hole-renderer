@@ -1,0 +1,6 @@
+pre-commit:
+  jobs:
+    - name: Format C++ files
+      stage_fixed: true
+      glob: "**/*.{cpp,hpp,c,h}"
+      run: clang-format -i {staged_files}
