@@ -9,6 +9,19 @@ project(
 	LANGUAGES CXX
 )
 
+include(FetchContent)
+
+FetchContent_Declare(
+	glfw
+	GIT_REPOSITORY https://github.com/glfw/glfw.git
+	GIT_TAG 3.4
+
+)
+
+FetchContent_MakeAvailable(
+	glfw
+)
+
 add_executable(bhr)
 
 set_property(
@@ -20,4 +33,10 @@ target_sources(
 	bhr
 	PRIVATE
 		src/main.cpp
+)
+
+target_link_libraries(
+	bhr
+	PRIVATE
+		glfw
 )
