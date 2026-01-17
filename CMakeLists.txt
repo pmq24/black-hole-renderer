@@ -11,6 +11,11 @@ project(
 
 add_executable(bhr)
 
+set_property(
+	TARGET bhr
+	PROPERTY CXX_STANDARD 17
+)
+
 target_sources(
 	bhr
 	PRIVATE
