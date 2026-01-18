@@ -52,6 +52,7 @@ target_sources(
 	bhr
 	PRIVATE
 		src/main.cpp
+		src/Render/Window.cpp
 )
 
 target_link_libraries(
