@@ -41,6 +41,16 @@ include_directories(deps/glad/include)
 
 
 
+FetchContent_Declare(
+	glm
+	GIT_REPOSITORY https://github.com/g-truc/glm.git
+	GIT_TAG 1.0.3
+)
+
+FetchContent_MakeAvailable(glm)
+
+
+
 add_executable(bhr)
 
 set_property(
@@ -60,4 +70,5 @@ target_link_libraries(
 	PRIVATE
 		glfw
 		glad
+		glm::glm
 )
