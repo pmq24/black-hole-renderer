@@ -1,5 +1,5 @@
-#include <fstream>
-#include <sstream>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/mat4x4.hpp>
 
 #include "Render/Shader.hpp"
 #include "Render/Window.hpp"
@@ -13,9 +13,6 @@ int main() {
   glGenBuffers(1, &vert_buffer);
   glBindBuffer(GL_ARRAY_BUFFER, vert_buffer);
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-  GLint status;
-  char  buffer[512];
 
   Render::Shader vert_shader(Render::ShaderType::Vert, "triangle.vert.glsl");
   Render::Shader frag_shader(Render::ShaderType::Frag, "triangle.frag.glsl");
@@ -33,6 +30,16 @@ int main() {
   GLint posAttrib = glGetAttribLocation(shader_program, "position");
   glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(posAttrib);
+
+  glm::mat4 proj =
+    glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+  glm::mat4 view =
+    glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+  glm::mat4 model = glm::mat4(1.0f);
+  glm::mat4 mvp   = proj * view * model;
+
+  GLuint mvp_uniform = glGetUniformLocation(shader_program, "mvp");
+  glUniformMatrix4fv(mvp_uniform, 1, GL_FALSE, &mvp[0][0]);
 
   while (!window.should_close()) {
     window.clear();
