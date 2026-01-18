@@ -1,6 +1,7 @@
 #include <fstream>
 #include <sstream>
 
+#include "Render/Shader.hpp"
 #include "Render/Window.hpp"
 
 int main() {
@@ -16,46 +17,12 @@ int main() {
   GLint status;
   char  buffer[512];
 
-  std::ifstream vert_shader_file("assets/triangle.vert.glsl");
-  if (!vert_shader_file.is_open()) {
-    throw std::runtime_error("Failed to open vertex shader file");
-  }
-  std::ostringstream vert_shader_stream;
-  vert_shader_stream << vert_shader_file.rdbuf();
-  std::string vert_shader_src_string = vert_shader_stream.str();
-  const char *vert_shader_src        = vert_shader_src_string.c_str();
-  GLuint      vert_shader            = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vert_shader, 1, &vert_shader_src, nullptr);
-  glCompileShader(vert_shader);
-
-  glGetShaderiv(vert_shader, GL_COMPILE_STATUS, &status);
-  if (status != GL_TRUE) {
-    glGetShaderInfoLog(vert_shader, 512, nullptr, buffer);
-    throw std::runtime_error(std::string("Vertex shader compilation failed: ") +
-                             buffer);
-  }
-
-  std::ifstream frag_shader_file("assets/triangle.frag.glsl");
-  if (!frag_shader_file.is_open()) {
-    throw std::runtime_error("Failed to open fragment shader file");
-  }
-  std::ostringstream frag_shader_stream;
-  frag_shader_stream << frag_shader_file.rdbuf();
-  std::string frag_shader_src_string = frag_shader_stream.str();
-  const char *frag_shader_src        = frag_shader_src_string.c_str();
-  GLuint      frag_shader            = glCreateShader(GL_FRAGMENT_SHADER);
-  glShaderSource(frag_shader, 1, &frag_shader_src, nullptr);
-  glCompileShader(frag_shader);
-  glGetShaderiv(frag_shader, GL_COMPILE_STATUS, &status);
-  if (status != GL_TRUE) {
-    glGetShaderInfoLog(frag_shader, 512, nullptr, buffer);
-    throw std::runtime_error(
-      std::string("Fragment shader compilation failed: ") + buffer);
-  }
+  Render::Shader vert_shader(Render::ShaderType::Vert, "triangle.vert.glsl");
+  Render::Shader frag_shader(Render::ShaderType::Frag, "triangle.frag.glsl");
 
   GLuint shader_program = glCreateProgram();
-  glAttachShader(shader_program, vert_shader);
-  glAttachShader(shader_program, frag_shader);
+  glAttachShader(shader_program, vert_shader.get_id());
+  glAttachShader(shader_program, frag_shader.get_id());
   glLinkProgram(shader_program);
   glUseProgram(shader_program);
 
