@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <glad/gl.h>
+
 #include <GLFW/glfw3.h>
 
 int main() {
@@ -19,6 +21,15 @@ int main() {
   }
 
   glfwMakeContextCurrent(window);
+
+  int version = gladLoadGL(glfwGetProcAddress);
+  if (version == 0) {
+    std::printf("Failed to initialize OpenGL context\n");
+    return -1;
+  }
+  printf("Loaded OpenGL %d.%d\n",
+         GLAD_VERSION_MAJOR(version),
+         GLAD_VERSION_MINOR(version));
 
   while (!glfwWindowShouldClose(window)) {
     glfwSwapBuffers(window);

@@ -6,10 +6,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(
 	bhr
-	LANGUAGES CXX
+	LANGUAGES CXX C
 )
 
 include(FetchContent)
+
+
 
 FetchContent_Declare(
 	glfw
@@ -18,9 +20,26 @@ FetchContent_Declare(
 
 )
 
-FetchContent_MakeAvailable(
-	glfw
+FetchContent_MakeAvailable(glfw)
+
+
+
+add_library(glad)
+
+target_sources(
+	glad
+	PUBLIC
+		FILE_SET HEADERS
+		FILES
+			deps/glad/include/glad/gl.h
+			deps/glad/include/KHR/khrplatform.h
+	PRIVATE
+		deps/glad/src/gl.c
 )
+
+include_directories(deps/glad/include)
+
+
 
 add_executable(bhr)
 
@@ -39,4 +58,5 @@ target_link_libraries(
 	bhr
 	PRIVATE
 		glfw
+		glad
 )
