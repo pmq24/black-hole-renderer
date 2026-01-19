@@ -70,8 +70,7 @@ target_sources(
 	bhr
 	PRIVATE
 		src/main.cpp
-		src/Render/Shader.cpp
-		src/Render/Window.cpp
+		src/Window.cpp
 )
 
 target_link_libraries(
