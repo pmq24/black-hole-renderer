@@ -1,10 +1,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/mat4x4.hpp>
+#include <spdlog/spdlog.h>
 
 #include "Render/Shader.hpp"
 #include "Render/Window.hpp"
 
 int main() {
+  spdlog::info("Starting application...");
   Render::Window window;
 
   float vertices[] = {0.0f, 0.5f, 0.5f, -0.5f, -0.5f, -0.5f};
