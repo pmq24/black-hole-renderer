@@ -26,4 +26,6 @@ class Window {
   GLFWwindow     *glfwWindow;
   uint32_t        openGlVersion;
   EventCallbackFn eventCallback;
+  uint32_t        width;
+  uint32_t        height;
 };

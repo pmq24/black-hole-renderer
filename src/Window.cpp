@@ -29,7 +29,11 @@ Window::Window() {
   glfwSetWindowSizeCallback(
     this->glfwWindow, [](GLFWwindow *window, int width, int height) {
       Window *w = static_cast<Window *>(glfwGetWindowUserPointer(window));
-      auto    e = Events::Window::Resize(width, height);
+
+      w->width  = width;
+      w->height = height;
+
+      auto e = Events::Window::Resize(width, height);
       w->eventCallback(e);
     });
 }
