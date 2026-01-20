@@ -72,7 +72,10 @@ target_sources(
 		src/main.cpp
 
 		src/Layers/BlackHole/Layer.cpp
+
 		src/Rendering/AssetLoader.cpp
+		src/Rendering/Shaders/Base.cpp
+		src/Rendering/Opengl.cpp
 
 		src/App.cpp
 		src/Window.cpp

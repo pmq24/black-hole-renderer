@@ -1,8 +1,14 @@
 #include "App.hpp"
 #include "src/Layers/BlackHole/Layer.hpp"
+#include "src/Rendering/Opengl.hpp"
 
 int main() {
   App app;
+
+  Rendering::Opengl        opengl;
+  Rendering::Shaders::Vert vertShader = opengl.loadVertShader("fullscreen");
+  Rendering::Shaders::Frag fragShader = opengl.loadFragShader("blackhole");
+
   app.pushLayer(std::make_unique<Layers::BlackHole::Layer>());
   app.run();
 

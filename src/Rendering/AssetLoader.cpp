@@ -1,4 +1,5 @@
 #include <fstream>
+#include <sstream>
 
 #include "spdlog/spdlog.h"
 
@@ -14,10 +15,9 @@ const std::string AssetLoader::loadText(const std::string &assetName) {
     assert(false);
   }
 
-  std::string content(file.tellg(), '\0');
-  file.seekg(0);
-  file.read(content.data(), content.size());
-  return content;
+  std::ostringstream buffer;
+  buffer << file.rdbuf();
+  return buffer.str();
 }
 
 const std::string AssetLoader::resolveAssetPath(const std::string &assetName) {
