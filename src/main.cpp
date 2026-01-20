@@ -1,9 +1,9 @@
 #include "App.hpp"
-#include "src/Layers/Dump.hpp"
+#include "src/Layers/BlackHole/Layer.hpp"
 
 int main() {
   App app;
-  app.pushLayer(std::make_unique<Layers::Dump>());
+  app.pushLayer(std::make_unique<Layers::BlackHole::Layer>());
   app.run();
 
   // spdlog::info("Starting application...");

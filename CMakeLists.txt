@@ -71,7 +71,7 @@ target_sources(
 	PRIVATE
 		src/main.cpp
 
-		src/Layers/Dump.cpp
+		src/Layers/BlackHole/Layer.cpp
 
 		src/App.cpp
 		src/Window.cpp
