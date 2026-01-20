@@ -1,7 +1,9 @@
 #include "App.hpp"
+#include "src/Layers/Dump.hpp"
 
 int main() {
   App app;
+  app.pushLayer(std::make_unique<Layers::Dump>());
   app.run();
 
   // spdlog::info("Starting application...");

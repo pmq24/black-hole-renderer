@@ -70,6 +70,9 @@ target_sources(
 	bhr
 	PRIVATE
 		src/main.cpp
+
+		src/Layers/Dump.cpp
+
 		src/App.cpp
 		src/Window.cpp
 )
